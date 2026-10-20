@@ -1,0 +1,19 @@
+# Dataset and image data (keep out of public GitHub)
+Dataset/
+dataset/
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated model files
+*.keras
+*.h5
+saved_model/

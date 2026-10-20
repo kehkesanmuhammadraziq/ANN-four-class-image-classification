@@ -1,0 +1,123 @@
+# Four-Class Image Classification with an Artificial Neural Network
+
+A computer-vision learning project that trains a feed-forward artificial neural network (ANN) to classify grayscale images into four dataset categories: **car**, **cricket ball**, **digit**, and **ice cream cone**.
+
+The notebook walks through the complete workflow: loading images from class folders, preprocessing, creating train/validation/test splits, training the ANN, evaluating its performance, and inspecting individual predictions.
+
+> **Project status:** The notebook has been organized for reproducible experiments, but its updated model has not been run against the dataset in this repository-preparation step. Run it locally to generate current metrics before publishing numerical results.
+
+## What this project demonstrates
+
+- Loading and preprocessing image data with OpenCV
+- Converting images to normalized numerical features
+- Building a multi-class ANN with TensorFlow/Keras
+- Using stratified train, validation, and test splits
+- Monitoring training with accuracy and loss curves
+- Evaluating predictions with accuracy, precision, recall, F1-score, and a confusion matrix
+- Inspecting correct and incorrect predictions
+- Setting random seeds and documenting experiment limitations
+
+## Model approach
+
+Each image is converted to grayscale, resized to **100 × 100 pixels**, normalized to values between **0 and 1**, and flattened into a vector of 10,000 input features.
+
+The ANN uses:
+- Dense hidden layers with ReLU activation
+- Dropout layers to help reduce overfitting
+- A four-unit softmax output layer
+- Adam optimizer and sparse categorical cross-entropy loss
+- Early stopping based on validation loss
+
+This is an intentionally simple baseline. Flattening an image does not preserve its 2D spatial structure in the way a convolutional neural network (CNN) does, making a CNN a useful future comparison.
+
+## Repository structure
+
+```text
+.
+├── Dataset/                                  # Add locally; not tracked by Git
+│   ├── car/
+│   ├── cricket ball/
+│   ├── digit/
+│   └── ice cream cone/
+├── notebooks/
+│   └── artificial-neural-network-classification.ipynb
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+The dataset is intentionally **not included** in this repository. Folder names are used as class labels. The notebook sorts the folder names to keep the label mapping consistent.
+
+## Getting started
+
+### 1. Create the expected dataset folders
+
+Download or use your own dataset, and place the images in the four class folders shown above. Keep the dataset source and any licence or usage requirements documented. Do not commit private, sensitive, or copyrighted images unless you have permission to share them.
+
+### 2. Create an environment and install dependencies
+
+Use Python 3.10 or 3.11 for a broadly compatible setup.
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
+
+**macOS/Linux**
+```bash
+source .venv/bin/activate
+```
+
+**Windows**
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 3. Launch Jupyter
+
+Run these commands from the repository root:
+
+```bash
+jupyter notebook
+```
+
+Open `notebooks/artificial-neural-network-classification.ipynb` and run the cells from top to bottom. The notebook checks for `Dataset/` in the project root.
+
+## Evaluation
+
+The notebook calculates the following from the held-out test set:
+
+| Metric | Why it is useful |
+|---|---|
+| Accuracy | Overall proportion of correct predictions |
+| Precision | How often predictions for a class are correct |
+| Recall | How many examples of a class the model finds |
+| F1-score | Balance between precision and recall |
+| Confusion matrix | Shows which classes are confused with one another |
+
+**Add your final results here after running the notebook.** Include the actual test accuracy and a short interpretation of the per-class metrics. Do not copy old results or estimate metrics. The current notebook has not been executed with your dataset as part of preparing this repository.
+
+## Limitations and next steps
+
+- This ANN is a baseline, not a state-of-the-art image classifier.
+- Performance depends on the size, quality, balance, and source of the dataset.
+- A random test split may not reflect performance on images from a different source.
+- Softmax output scores are not calibrated probabilities of correctness.
+- The classifier predicts only among the four classes it was trained on; it is not a general-purpose object detector.
+- Future work could compare this ANN against a CNN, use data augmentation, analyze misclassified examples, and evaluate on an independent dataset.
+
+## Reproducibility and responsible reporting
+
+Before sharing results, record the dataset source, image counts per class, Python/package versions, and any changes to preprocessing or hyperparameters. Report only metrics generated by a completed run. Keep the dataset and trained model files out of GitHub unless there is a clear reason and you have checked file size, licensing, and privacy.
+
+## Author notes
+
+Before publishing, add a brief personal note describing what you implemented, what you learned from the experiment, and what you would test next. Keep this specific to work you can explain and reproduce.
